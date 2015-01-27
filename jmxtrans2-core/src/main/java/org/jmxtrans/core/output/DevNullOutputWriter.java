@@ -35,13 +35,13 @@ import java.util.Map;
 public class DevNullOutputWriter implements OutputWriter {
 
     @Override
-    public void write(QueryResult result) throws IOException {
+    public void write(@Nonnull QueryResult result) throws IOException {
     }
 
     public static final class Factory implements OutputWriterFactory<DevNullOutputWriter> {
         @Nonnull
         @Override
-        public DevNullOutputWriter create(Map<String, String> settings) {
+        public DevNullOutputWriter create(@Nonnull Map<String, String> settings) {
             return new DevNullOutputWriter();
         }
     }

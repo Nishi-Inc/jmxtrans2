@@ -22,6 +22,8 @@
  */
 package org.jmxtrans.output.writers.utils;
 
+import lombok.Getter;
+
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Queue;
@@ -32,6 +34,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class EvictingQueue<E> extends ForwardingQueue<E> implements Queue<E> {
 
+    @Getter
     private LinkedBlockingQueue delegate;
     private int maxRetry = 10;
 
@@ -55,7 +58,7 @@ public class EvictingQueue<E> extends ForwardingQueue<E> implements Queue<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@Nonnull Collection<? extends E> c) {
         return standardAddAll(c);
     }
 
@@ -65,7 +68,6 @@ public class EvictingQueue<E> extends ForwardingQueue<E> implements Queue<E> {
     }
 
     protected boolean addEvictingIfNeeded(E e) {
-
         for (int i = 0; i < maxRetry; i++) {
             boolean offered = delegate().offer(e);
             if (offered) {

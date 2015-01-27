@@ -22,6 +22,8 @@
  */
 package org.jmxtrans.utils.time;
 
+import lombok.Getter;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
@@ -31,27 +33,18 @@ import java.util.concurrent.TimeUnit;
 import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
+@Getter
 @Immutable
 @ThreadSafe
 public class Interval {
 
     private final int value;
-
     @Nonnull
     private final TimeUnit timeUnit;
 
     public Interval(int value, @Nonnull TimeUnit timeUnit) {
         this.value = value;
         this.timeUnit = requireNonNull(timeUnit, "timeUnit cannot be null");
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    @Nonnull
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
     }
 
     public long getDuration(TimeUnit timeUnit) {

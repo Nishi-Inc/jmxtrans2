@@ -33,9 +33,15 @@ public class QueryResultTimeComparator implements Comparator<QueryResult>, Seria
 
     @Override
     public int compare(QueryResult result1, QueryResult result2) {
-        if (result1 == result2) return 0;
-        if (result1 == null) return -1;
-        if (result2 == null) return 1;
+        if (result1 == result2) {
+            return 0;
+        }
+        if (result1 == null) {
+            return -1;
+        }
+        if (result2 == null) {
+            return 1;
+        }
         return Long.compare(result1.getEpoch(MILLISECONDS), result2.getEpoch(MILLISECONDS));
     }
 }

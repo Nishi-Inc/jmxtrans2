@@ -119,6 +119,7 @@ public class CircuitBreakerProxy implements InvocationHandler {
     }
 
     @Nonnull
+    @SuppressWarnings("unchecked")
     public static <T> T create(
             @Nonnull Clock clock,
             @Nonnull Class<T> proxiedInterface,

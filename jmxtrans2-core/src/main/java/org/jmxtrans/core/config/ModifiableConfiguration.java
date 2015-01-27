@@ -22,6 +22,8 @@
  */
 package org.jmxtrans.core.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jmxtrans.core.output.OutputWriter;
 import org.jmxtrans.core.query.Invocation;
 import org.jmxtrans.core.query.embedded.Server;
@@ -35,10 +37,11 @@ import java.util.Collection;
 @NotThreadSafe
 final class ModifiableConfiguration implements Configuration {
 
+    @Setter
     private Interval period;
-    @Nonnull
+    @Nonnull @Getter
     private final Collection<OutputWriter> outputWriters = new ArrayList<>();
-    @Nonnull
+    @Nonnull @Getter
     private final Collection<Invocation> invocations = new ArrayList<>();
     private final Collection<Server> servers = new ArrayList<>();
 
@@ -51,24 +54,10 @@ final class ModifiableConfiguration implements Configuration {
     @Nonnull
     @Override
     public Interval getPeriod() {
-        if (period == null) return DefaultConfiguration.getInstance().getPeriod();
+        if (period == null) {
+            return DefaultConfiguration.getInstance().getPeriod();
+        }
         return period;
-    }
-
-    public void setPeriod(@Nonnull Interval period) {
-        this.period = period;
-    }
-
-    @Nonnull
-    @Override
-    public Collection<OutputWriter> getOutputWriters() {
-        return outputWriters;
-    }
-
-    @Nonnull
-    @Override
-    public Collection<Invocation> getInvocations() {
-        return invocations;
     }
 
     public void addServer(@Nonnull Server server) {

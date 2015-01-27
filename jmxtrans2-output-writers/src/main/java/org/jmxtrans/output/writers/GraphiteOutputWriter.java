@@ -79,6 +79,7 @@ public class GraphiteOutputWriter implements WriterBasedOutputWriter {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static class Factory implements OutputWriterFactory<BatchingOutputWriter<TcpOutputWriter<GraphiteOutputWriter>>> {
         @Nonnull
         @Override

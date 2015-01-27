@@ -22,21 +22,16 @@
  */
 package org.jmxtrans.output.writers;
 
+import org.jmxtrans.core.log.Logger;
+import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.core.output.OutputWriter;
 import org.jmxtrans.core.output.OutputWriterFactory;
 import org.jmxtrans.core.results.QueryResult;
-import org.jmxtrans.core.log.Logger;
-import org.jmxtrans.core.log.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -152,6 +147,7 @@ public class FileOverwriterOutputWriter implements OutputWriter {
         public final static Boolean SETTING_SHOW_TIMESTAMP_DEFAULT = false;
 
         @Override
+        @Nonnull
         public FileOverwriterOutputWriter create(@Nonnull Map<String, String> settings) {
             File file = new File(getString(settings, SETTING_FILE_NAME, SETTING_FILE_NAME_DEFAULT_VALUE));
             boolean showTimeStamp = getBoolean(settings, SETTING_SHOW_TIMESTAMP, SETTING_SHOW_TIMESTAMP_DEFAULT);

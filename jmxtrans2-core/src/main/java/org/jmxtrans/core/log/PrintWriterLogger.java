@@ -22,6 +22,7 @@
  */
 package org.jmxtrans.core.log;
 
+import lombok.Getter;
 import org.jmxtrans.utils.time.Clock;
 
 import javax.annotation.Nonnull;
@@ -31,14 +32,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.jmxtrans.core.log.Level.DEBUG;
-import static org.jmxtrans.core.log.Level.ERROR;
-import static org.jmxtrans.core.log.Level.INFO;
-import static org.jmxtrans.core.log.Level.WARN;
+import static org.jmxtrans.core.log.Level.*;
 
 public class PrintWriterLogger implements Logger {
 
-    @Nonnull private final String name;
+    @Nonnull @Getter
+    private final String name;
     @Nonnull private final Level level;
     @Nonnull private final Clock clock;
     @Nonnull private final PrintStream out;
@@ -55,12 +54,6 @@ public class PrintWriterLogger implements Logger {
         this.out = out;
         this.name = name;
         this.clock = clock;
-    }
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override

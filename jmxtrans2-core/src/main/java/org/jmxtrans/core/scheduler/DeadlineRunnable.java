@@ -22,6 +22,7 @@
  */
 package org.jmxtrans.core.scheduler;
 
+import lombok.Getter;
 import org.jmxtrans.core.log.Logger;
 import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.utils.time.Clock;
@@ -29,6 +30,7 @@ import org.jmxtrans.utils.time.Clock;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
+@Getter
 @ThreadSafe
 public abstract class DeadlineRunnable implements Runnable {
 
@@ -53,12 +55,4 @@ public abstract class DeadlineRunnable implements Runnable {
 
     protected abstract void doRun();
 
-    @Nonnull
-    protected Clock getClock() {
-        return clock;
-    }
-
-    protected long getDeadline() {
-        return deadline;
-    }
 }

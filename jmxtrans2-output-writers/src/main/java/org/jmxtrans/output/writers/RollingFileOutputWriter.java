@@ -22,22 +22,16 @@
  */
 package org.jmxtrans.output.writers;
 
+import org.jmxtrans.core.log.Logger;
+import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.core.output.OutputWriter;
 import org.jmxtrans.core.output.OutputWriterFactory;
 import org.jmxtrans.core.results.QueryResult;
-import org.jmxtrans.core.log.Logger;
-import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.utils.io.IoUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -46,9 +40,7 @@ import java.util.Calendar;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static org.jmxtrans.utils.ConfigurationUtils.getInt;
-import static org.jmxtrans.utils.ConfigurationUtils.getLong;
-import static org.jmxtrans.utils.ConfigurationUtils.getString;
+import static org.jmxtrans.utils.ConfigurationUtils.*;
 
 @NotThreadSafe
 public class RollingFileOutputWriter implements OutputWriter {
@@ -65,8 +57,8 @@ public class RollingFileOutputWriter implements OutputWriter {
 
     protected RollingFileOutputWriter(
             @Nonnull File file,
-            @Nonnull long maxFileSize,
-            @Nonnull int maxBackupIndex,
+            long maxFileSize,
+            int maxBackupIndex,
             @Nonnull DateFormat dateFormat) {
         this.dateFormat = dateFormat;
         this.file = file;

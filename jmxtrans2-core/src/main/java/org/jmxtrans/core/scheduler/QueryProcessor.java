@@ -57,7 +57,6 @@ public class QueryProcessor {
         this.resultNameStrategy = resultNameStrategy;
     }
 
-    @Nonnull
     public void process(long deadline, @Nonnull Server server, @Nonnull Query query) {
         queryExecutor.execute(new Processor(clock, deadline, server, query, outputWriters, resultProcessor, resultNameStrategy));
     }

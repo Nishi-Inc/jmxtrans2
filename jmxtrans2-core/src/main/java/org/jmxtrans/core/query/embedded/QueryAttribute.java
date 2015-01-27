@@ -22,6 +22,7 @@
  */
 package org.jmxtrans.core.query.embedded;
 
+import lombok.Getter;
 import org.jmxtrans.core.log.Logger;
 import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.core.results.QueryResult;
@@ -33,12 +34,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.management.ObjectName;
 import javax.management.openmbean.CompositeData;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static java.lang.String.format;
 import static java.util.Objects.hash;
@@ -61,7 +57,7 @@ public class QueryAttribute {
     /**
      * Name of the JMX Attribute to collect
      */
-    @Nonnull
+    @Nonnull @Getter
     private final String name;
     /**
      * Used to create the name of the {@link org.jmxtrans.core.results.QueryResult} that will be exported.
@@ -70,7 +66,7 @@ public class QueryAttribute {
      *
      * @see org.jmxtrans.core.results.QueryResult#getName()
      */
-    @Nullable
+    @Nullable @Getter
     private final String resultAlias;
 
     /**
@@ -78,7 +74,7 @@ public class QueryAttribute {
      *
      * @see org.jmxtrans.core.results.QueryResult#getName()
      */
-    @Nullable
+    @Nullable @Getter
     private final String type;
 
     /**
@@ -110,21 +106,6 @@ public class QueryAttribute {
         this.resultAlias = resultAlias;
         this.keys = keys;
         this.clock = clock;
-    }
-
-    @Nonnull
-    public String getName() {
-        return name;
-    }
-
-    @Nullable
-    public String getResultAlias() {
-        return resultAlias;
-    }
-
-    @Nullable
-    public String getType() {
-        return type;
     }
 
     /**

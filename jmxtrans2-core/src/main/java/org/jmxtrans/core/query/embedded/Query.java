@@ -22,6 +22,8 @@
  */
 package org.jmxtrans.core.query.embedded;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jmxtrans.core.log.Logger;
 import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.core.results.QueryResult;
@@ -33,20 +35,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.management.Attribute;
-import javax.management.AttributeList;
-import javax.management.MBeanServer;
-import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
+import javax.management.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.String.format;
@@ -69,7 +60,7 @@ public class Query implements QueryMBean {
     @Nonnull
     private final ObjectName objectName;
 
-    @Nullable
+    @Nullable @Getter
     private final String resultAlias;
     /**
      * JMX attributes to collect. As an array for {@link javax.management.MBeanServer#getAttributes(javax.management.ObjectName, String[])}
@@ -88,12 +79,13 @@ public class Query implements QueryMBean {
     /**
      * {@link javax.management.ObjectName} of this {@link QueryMBean}
      */
-    @Nonnull
+    @Nonnull @Getter
     private final ObjectName queryMbeanObjectName;
 
-    @Nullable
+    @Nullable @Setter
     private MBeanServer mbeanServer;
 
+    @Getter
     private final int maxResults;
     
     private Query(@Nonnull ObjectName objectName,
@@ -173,21 +165,6 @@ public class Query implements QueryMBean {
     }
 
     @Override
-    @Nullable
-    public String getResultAlias() {
-        return resultAlias;
-    }
-
-    @Nonnull
-    public ObjectName getQueryMbeanObjectName() {
-        return queryMbeanObjectName;
-    }
-
-    public int getMaxResults() {
-        return maxResults;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -233,10 +210,6 @@ public class Query implements QueryMBean {
     @Nonnull
     public String getId() {
         return queryMbeanObjectName.getCanonicalName();
-    }
-
-    public void setMbeanServer(@Nonnull MBeanServer mbeanServer) {
-        this.mbeanServer = mbeanServer;
     }
 
     @Nonnull

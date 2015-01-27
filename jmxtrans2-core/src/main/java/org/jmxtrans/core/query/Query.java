@@ -22,9 +22,10 @@
  */
 package org.jmxtrans.core.query;
 
-import org.jmxtrans.core.results.QueryResult;
+import lombok.Getter;
 import org.jmxtrans.core.log.Logger;
 import org.jmxtrans.core.log.LoggerFactory;
+import org.jmxtrans.core.results.QueryResult;
 import org.jmxtrans.utils.collections.ArrayUtils;
 import org.jmxtrans.utils.collections.Iterables2;
 import org.jmxtrans.utils.time.Clock;
@@ -34,13 +35,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import javax.management.AttributeNotFoundException;
-import javax.management.InstanceNotFoundException;
-import javax.management.MBeanException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import javax.management.ReflectionException;
+import javax.management.*;
 import javax.management.openmbean.CompositeData;
 import java.util.Collection;
 import java.util.Objects;
@@ -61,29 +56,29 @@ public class Query {
     @Nonnull
     private final ResultNameStrategy resultNameStrategy;
 
-    @Nonnull
+    @Nonnull @Getter
     private final ObjectName objectName;
-    @Nonnull
+    @Nonnull @Getter
     private final String resultAlias;
     /**
      * The attribute to retrieve ({@link javax.management.MBeanServer#getAttribute(javax.management.ObjectName, String)})
      */
-    @Nonnull
+    @Nonnull @Getter
     private final String attribute;
     /**
      * If the MBean attribute value is a {@link javax.management.openmbean.CompositeData}, the key to lookup.
      */
-    @Nullable
+    @Nullable @Getter
     private final String key;
     /**
      * If the returned value is a {@link java.util.Collection}or an array, the position of the entry to lookup.
      */
-    @Nullable
+    @Nullable @Getter
     private final Integer position;
     /**
      * Attribute type like '{@code gauge}' or '{@code counter}'. Used by monitoring systems like Librato who require this information.
      */
-    @Nullable
+    @Nullable @Getter
     private final String type;
 
     @Nonnull
@@ -226,52 +221,25 @@ public class Query {
                 '}';
     }
 
-    @Nonnull
-    public ObjectName getObjectName() {
-        return objectName;
-    }
-
-    @Nonnull
-    public String getResultAlias() {
-        return resultAlias;
-    }
-
-    @Nonnull
-    public String getAttribute() {
-        return attribute;
-    }
-
-    @Nullable
-    public String getKey() {
-        return key;
-    }
-
-    @Nullable
-    public Integer getPosition() {
-        return position;
-    }
-
-    @Nullable
-    public String getType() {
-        return type;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Query query = (Query) o;
 
-        if (!attribute.equals(query.attribute)) return false;
-        if (key != null ? !key.equals(query.key) : query.key != null) return false;
-        if (!objectName.equals(query.objectName)) return false;
-        if (position != null ? !position.equals(query.position) : query.position != null) return false;
-        if (!resultAlias.equals(query.resultAlias)) return false;
-        if (!resultNameStrategy.equals(query.resultNameStrategy)) return false;
-        if (type != null ? !type.equals(query.type) : query.type != null) return false;
+        return attribute.equals(query.attribute)
+                && !(key != null ? !key.equals(query.key) : query.key != null)
+                && objectName.equals(query.objectName)
+                && !(position != null ? !position.equals(query.position) : query.position != null)
+                && resultAlias.equals(query.resultAlias)
+                && resultNameStrategy.equals(query.resultNameStrategy)
+                && !(type != null ? !type.equals(query.type) : query.type != null);
 
-        return true;
     }
 
     @Override

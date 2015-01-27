@@ -22,10 +22,14 @@
  */
 package org.jmxtrans.core.query.embedded;
 
+import lombok.Getter;
+
+import javax.annotation.Nonnull;
 import javax.management.MBeanServerConnection;
 import java.lang.management.ManagementFactory;
 
 public class InProcessServer implements Server {
+    @Getter
     private final Iterable<Query> queries;
 
     public InProcessServer(Iterable<Query> queries) {
@@ -37,13 +41,9 @@ public class InProcessServer implements Server {
         return null;
     }
 
+    @Nonnull
     @Override
     public MBeanServerConnection getServerConnection() throws Exception {
         return ManagementFactory.getPlatformMBeanServer();
-    }
-
-    @Override
-    public Iterable<Query> getQueries() {
-        return queries;
     }
 }

@@ -23,10 +23,12 @@
 package org.jmxtrans.standalone.cli;
 
 import com.beust.jcommander.Parameter;
+import lombok.Getter;
 
 import java.io.File;
 import java.util.List;
 
+@Getter
 public class JmxTransParameters {
 
     @Parameter(
@@ -46,15 +48,4 @@ public class JmxTransParameters {
             description = "Start JmxTrans even if errors are found in configuration files.")
     private boolean ignoreParsingErrors = false;
 
-    public List<File> getConfigFiles() {
-        return configFiles;
-    }
-
-    public List<File> getConfigDirs() {
-        return configDirs;
-    }
-
-    public boolean ignoreParsingErrors() {
-        return ignoreParsingErrors;
-    }
 }

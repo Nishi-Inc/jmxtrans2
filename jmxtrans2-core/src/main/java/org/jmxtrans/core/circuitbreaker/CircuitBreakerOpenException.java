@@ -22,6 +22,8 @@
  */
 package org.jmxtrans.core.circuitbreaker;
 
+import lombok.Getter;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -29,8 +31,9 @@ import static java.lang.String.format;
 
 @ThreadSafe
 public class CircuitBreakerOpenException extends RuntimeException {
-    @Nonnull
+    @Nonnull @Getter
     private final Object target;
+    @Getter
     private final long disabledUntil;
 
     public CircuitBreakerOpenException(@Nonnull Object target, long disabledUntil) {
@@ -38,14 +41,5 @@ public class CircuitBreakerOpenException extends RuntimeException {
                 target.toString(), disabledUntil));
         this.target = target;
         this.disabledUntil = disabledUntil;
-    }
-
-    @Nonnull
-    public Object getTarget() {
-        return target;
-    }
-
-    public long getDisabledUntil() {
-        return disabledUntil;
     }
 }

@@ -22,10 +22,13 @@
  */
 package org.jmxtrans.utils.appinfo;
 
+import lombok.Getter;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Getter
 public class GitRepositoryState {
     private final String branch;
     private final String tags;
@@ -65,55 +68,4 @@ public class GitRepositoryState {
         }
     }
 
-    public String getBranch() {
-        return branch;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public String getDescribeShort() {
-        return describeShort;
-    }
-
-    public String getCommitId() {
-        return commitId;
-    }
-
-    public String getBuildUserName() {
-        return buildUserName;
-    }
-
-    public String getBuildUserEmail() {
-        return buildUserEmail;
-    }
-
-    public String getBuildTime() {
-        return buildTime;
-    }
-
-    public String getCommitUserName() {
-        return commitUserName;
-    }
-
-    public String getCommitUserEmail() {
-        return commitUserEmail;
-    }
-
-    public String getCommitMessageShort() {
-        return commitMessageShort;
-    }
-
-    public String getCommitMessageFull() {
-        return commitMessageFull;
-    }
-
-    public String getCommitTime() {
-        return commitTime;
-    }
 }

@@ -29,11 +29,7 @@ import org.jmxtrans.utils.StringUtils2;
 import javax.annotation.Nonnull;
 import javax.management.ObjectName;
 import java.net.InetAddress;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Callable;
 
 import static java.lang.String.format;
@@ -155,7 +151,8 @@ public class ResultNameStrategy {
             queryName = resolveExpression(query.getResultAlias(), objectName);
         }
 
-        if (queryName != null && !queryName.isEmpty()) {
+        // queryName != null is always true
+        if (!queryName.isEmpty()) {
             result.append(queryName).append(".");
         }
 

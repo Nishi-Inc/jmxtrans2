@@ -22,11 +22,11 @@
  */
 package org.jmxtrans.output.writers;
 
+import org.jmxtrans.core.log.Logger;
+import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.core.output.OutputWriter;
 import org.jmxtrans.core.output.OutputWriterFactory;
 import org.jmxtrans.core.results.QueryResult;
-import org.jmxtrans.core.log.Logger;
-import org.jmxtrans.core.log.LoggerFactory;
 import org.jmxtrans.utils.time.Clock;
 import org.jmxtrans.utils.time.SystemClock;
 
@@ -35,11 +35,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.net.ConnectException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.nio.charset.Charset;
 import java.util.Map;
 
@@ -177,8 +173,9 @@ public class GraphitePlainTextTcpOutputWriter implements OutputWriter {
         public final static String SETTING_SOCKET_CONNECT_TIMEOUT_IN_MILLIS = "socket.connectTimeoutInMillis";
         public final static int SETTING_SOCKET_CONNECT_TIMEOUT_IN_MILLIS_DEFAULT_VALUE = 500;
 
+        @Nonnull
         @Override
-        public GraphitePlainTextTcpOutputWriter create(Map<String, String> settings) {
+        public GraphitePlainTextTcpOutputWriter create(@Nonnull Map<String, String> settings) {
             String metricPathPrefix = getString(settings, SETTING_NAME_PREFIX, null);
             int socketConnectTimeoutInMillis = getInt(settings,
                     SETTING_SOCKET_CONNECT_TIMEOUT_IN_MILLIS,

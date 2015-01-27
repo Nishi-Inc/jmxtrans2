@@ -33,7 +33,7 @@ import java.util.Map;
 public class DummyOutputWriter implements OutputWriter {
 
     @Override
-    public void write(QueryResult result) throws IOException {
+    public void write(@Nonnull QueryResult result) throws IOException {
     }
 
     public static final class Factory implements OutputWriterFactory<DummyOutputWriter> {

@@ -32,15 +32,22 @@ public class QueryResultValueComparator implements Comparator<QueryResult>, Seri
     private static final long serialVersionUID = 0L;
 
     @Override
+    @SuppressWarnings("unchecked")
     public int compare(QueryResult result1, QueryResult result2) {
         Object value1 = result1.getValue();
         Object value2 = result2.getValue();
 
-        if (value1 == value2) return 0;
+        if (value1 == value2) {
+            return 0;
+        }
 
-        if (value1 == null) return -1;
+        if (value1 == null) {
+            return -1;
+        }
 
-        if (value2 == null) return 1;
+        if (value2 == null) {
+            return 1;
+        }
 
         if (value1 instanceof Comparable<?> && value2 instanceof Comparable<?>) {
             return ((Comparable) value1).compareTo(value2);

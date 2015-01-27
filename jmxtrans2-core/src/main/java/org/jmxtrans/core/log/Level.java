@@ -23,7 +23,6 @@
 package org.jmxtrans.core.log;
 
 public enum Level {
-
     DEBUG,
     INFO,
     WARN,
