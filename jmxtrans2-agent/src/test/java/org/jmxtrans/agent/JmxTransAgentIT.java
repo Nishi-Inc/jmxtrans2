@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.jayway.awaitility.Awaitility.await;
 
 public class JmxTransAgentIT extends AbstractAgentTest {
 
@@ -34,26 +34,17 @@ public class JmxTransAgentIT extends AbstractAgentTest {
     public void agentIsStarting() throws IOException, InterruptedException {
         startDummyApplication();
 
-        Thread.sleep(3000);
-
-        System.out.println(getOut().toString("UTF-8"));
-        System.err.println(getErr().toString("UTF-8"));
-
-        assertThat(getOut().toString("UTF-8"))
-                .contains("counter.Value 0")
-                .contains("counter.Value 1");
+        await().until(stdOutContains("counter.Value 0"));
+        await().until(stdOutContains("counter.Value 1"));
     }
 
     @Test
     public void applicationInfoAreDisplayedAtStartup() throws IOException, InterruptedException {
         startDummyApplication();
 
-        Thread.sleep(1000);
-
-        assertThat(getOut().toString("UTF-8"))
-                .contains("JMXTrans - agent")
-                .contains("version:")
-                .contains("last modified:")
-                .contains("build time:");
+        await().until(stdOutContains("JMXTrans - agent"));
+        await().until(stdOutContains("version:"));
+        await().until(stdOutContains("last modified:"));
+        await().until(stdOutContains("build time:"));
     }
 }

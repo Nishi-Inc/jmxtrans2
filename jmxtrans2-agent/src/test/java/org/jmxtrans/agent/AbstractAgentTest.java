@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Callable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -133,6 +134,7 @@ public class AbstractAgentTest {
             return props.getProperty("project.build.directory");
         }
     }
+    
     private String getBaseDir() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("project-info.properties")) {
             Properties props = new Properties();
@@ -141,6 +143,15 @@ public class AbstractAgentTest {
         }
     }
 
+    protected Callable<Boolean> stdOutContains(final String content) {
+        return new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return out.toString("UTF-8").contains(content);
+            }
+        };
+    }
+    
     protected ByteArrayOutputStream getOut() {
         return out;
     }
